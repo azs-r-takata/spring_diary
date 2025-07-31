@@ -8,21 +8,17 @@
 	
 	<body>
 		<h2>日記一覧</h2>
-		<form th:action="@{/diary/new}" method="post">
-			<button type="submit">新規投稿</button>
-		</form>
+		<button type="submit">新規投稿</button>
+		
 		<table border="1">
 			<thead>
 				<tr>
 					<th>タイトル</th>
+					<th>投稿日時</th>
 				</tr>
 			</thead>
 			<tbody>
-				<form th:action="@{/diary/{id}}" method="post">
-					<tr th:each="diary : ${diaries}">
-						<td th:text="${diary.getDiaryTitle()}"></td>
-					</tr>
-				</form>
+				
 			</tbody>
 		</table>
 	</body>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1"
+		<title>詳細画面</title>
+	</head>
+	
+	<body>
+		<h2>日記詳細</h2>
+		
+		<table border="1">
+			<thead>
+				<tr>
+					<th>タイトル</th>
+					<th>本文</th>
+					<th>投稿日時</th>
+				</tr>
+			</thead>
+			<tbody>
+				<td th:text="${diary.getDiaryTitle()}"></td>
+				<td th:text="${diary.setDiaryContent()}"></td>
+				<td th:text="${diary.setDiaryDate()}"></td>
+			</tbody>
+		</table>
+	</body>
+</html>

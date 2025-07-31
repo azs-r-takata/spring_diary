@@ -2,6 +2,7 @@ package com.example.diary.service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -35,4 +36,8 @@ public class DiaryService {
 	public List<Diary> getAllDiary(){
 		return diaryRepository.findAll();
 	}
+
+	public Optional<Diary> getDiaryById(int Id) {
+		return diaryRepository.findById(Id);
+	} 
 }
