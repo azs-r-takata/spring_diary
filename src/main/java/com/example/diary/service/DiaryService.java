@@ -43,10 +43,12 @@ public class DiaryService {
 			throw new IllegalArgumentException("そのタイトルは既に使用されています。");
 		}
 		
+		Date now = new Date();
 		Diary diary = new Diary();
 		diary.setDiaryId(diaryId);
 		diary.setDiaryTitle(diaryTitle);
 		diary.setDiaryContent(diaryContent);
+		diary.setDiaryDate(now);
 		
 		diaryRepository.save(diary);
 	}
