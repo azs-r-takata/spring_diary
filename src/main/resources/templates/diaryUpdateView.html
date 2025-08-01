@@ -7,15 +7,22 @@
 	</head>
 	
 	<body>
-		<h2>日記登録</h2>
-		<form th:action="@{/diary/save}" method="post">
+		<h2>日記編集</h2>
+		<form th:action="@{/diary/update}" method="post">
+			
+			<input type="hidden" th:value="${diary.diaryId}" name="diaryId"><br>
+			
 			<label for="diaryTitle">タイトル：</label>
 			<input type="text" id="diaryTitle" name="diaryTitle"><br>
 			
 			<label for="diaryContent">本文：</label>
-			<input type="text" id="diaryContent" name="diaryContent"><br>
+			<input type="text" id="diaryContent" name="diaryeContent"><br>
 			
 			<button type="submit">保存</button>
+		</form>
+		
+		<form th:action="@{/diary}" method="get">
+			<button type="submit">戻る</button>
 		</form>
 		
 		<p th:if="${successMessage}" th:text="${successMessage}" style="color: green;"></p>

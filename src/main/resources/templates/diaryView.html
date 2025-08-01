@@ -2,13 +2,13 @@
 <html xmlns="https://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1"
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>日記_SpringBoot課題</title>
 	</head>
 	
 	<body>
 		<h2>日記一覧</h2>
-		<form th:action="@{/diary/new}" method="post">
+		<form th:action="@{/diary/new}" method="get">
 			<button type="submit">新規投稿</button>
 		</form>
 		<table border="1">
@@ -18,11 +18,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<form th:action="@{/diary/{id}}" method="post">
-					<tr th:each="diary : ${diaries}">
-						<td th:text="${diary.getDiaryTitle()}"></td>
-					</tr>
-				</form>
+				<tr th:each="diary : ${diaries}">
+					<td>
+						<a th:href="@{http://localhost:8080/diary/{id}(id=${diary.getDiaryId})}" th:text="${diary.getDiaryTitle()}">DiaryTitle</a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</body>

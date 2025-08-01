@@ -1,6 +1,6 @@
 package com.example.diary.service;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +16,25 @@ public class DiaryService {
 		this.diaryRepository = diaryRepository;
 	}
 	
-	public void inputDiary(String diaryTitle, Timestamp diaryDate, String diaryContent) {
+	public void inputDiary(String diaryTitle, String diaryContent) {
+		if (diaryTitle == null || diaryTitle.isEmpty()) {
+			throw new IllegalArgumentException("タイトルを入力してください。");
+		}
+		
+		if (!diaryRepository.findByDiaryTitle(diaryTitle).isEmpty()) {
+			throw new IllegalArgumentException("そのタイトルは既に使用されています。");
+		}
+		
+		Date now = new Date();
+		Diary diary = new Diary();
+		diary.setDiaryTitle(diaryTitle);
+		diary.setDiaryContent(diaryContent);
+		diary.setDiaryDate(now);
+		
+		diaryRepository.save(diary);
+	}
+	
+	public void updateDiary(int diaryId, String diaryTitle, String diaryContent) {
 		if (diaryTitle == null || diaryTitle.isEmpty()) {
 			throw new IllegalArgumentException("タイトルを入力してください。");
 		}
@@ -26,8 +44,8 @@ public class DiaryService {
 		}
 		
 		Diary diary = new Diary();
+		diary.setDiaryId(diaryId);
 		diary.setDiaryTitle(diaryTitle);
-		diary.setDiaryDate(diaryDate);
 		diary.setDiaryContent(diaryContent);
 		
 		diaryRepository.save(diary);
@@ -37,7 +55,11 @@ public class DiaryService {
 		return diaryRepository.findAll();
 	}
 
-	public Optional<Diary> getDiaryById(int Id) {
-		return diaryRepository.findById(Id);
+	public Optional<Diary> getDiaryById(int diaryId) {
+		return diaryRepository.findById(diaryId);
 	} 
+	
+	public void deleteDiary(int diaryId) {
+		diaryRepository.deleteById(diaryId);
+	}
 }

@@ -1,6 +1,6 @@
 package com.example.diary.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,9 +22,9 @@ public class Diary {
 	@Column(name = "diary_title")
 	private String diaryTitle;
 	
-	@Column(name = "diary_date")
-	private Timestamp diaryDate;
-	
 	@Column(name = "diary_content")
 	private String diaryContent;
+	
+	@Column(name = "diary_date")
+	private Date diaryDate;
 }

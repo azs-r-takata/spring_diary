@@ -2,7 +2,7 @@
 <html xmlns="https://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1"
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>詳細画面</title>
 	</head>
 	
@@ -10,18 +10,30 @@
 		<h2>日記詳細</h2>
 		
 		<table border="1">
-			<thead>
-				<tr>
-					<th>タイトル</th>
-					<th>本文</th>
-					<th>投稿日時</th>
-				</tr>
-			</thead>
-			<tbody>
-				<td th:text="${diary.getDiaryTitle()}"></td>
-				<td th:text="${diary.setDiaryContent()}"></td>
-				<td th:text="${diary.setDiaryDate()}"></td>
-			</tbody>
+			<tr>
+				<th>タイトル</th>
+				<td th:text="${diary.diaryTitle}"></td>
+			</tr>
+			<tr>
+				<th>本文</th>
+				<td th:text="${diary.diaryContent}"></td>
+			</tr>
+			<tr>
+				<th>投稿日時</th>
+				<td th:text="${#dates.format(diary.diaryDate, 'yyyy/MM/dd')}"></td>
+			</tr>
 		</table>
+		
+		<form th:action="@{/diary/edit/{id}(id=${diary.diaryId})}" method="get">
+			<button type="submit">編集</button>
+		</form>
+		
+		<form th:action="@{/diary/delete/{id}(id=${diary.diaryId})}" method="post">
+			<button type="submit">削除</button>
+		</form>
+		
+		<form th:action="@{/diary}" method="get">
+			<button type="submit">戻る</button>
+		</form>
 	</body>
 </html>
