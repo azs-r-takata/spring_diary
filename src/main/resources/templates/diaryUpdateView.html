@@ -8,15 +8,17 @@
 	
 	<body>
 		<h2>日記編集</h2>
-		<form th:action="@{/diary/update}" method="post">
+		<form th:action="@{/diary/update}" method="post" th:object="${diaryForm}">
 			
 			<input type="hidden" th:value="${diary.diaryId}" name="diaryId"><br>
 			
-			<label for="diaryTitle">タイトル：</label>
-			<input type="text" id="diaryTitle" name="diaryTitle"><br>
+			<label for="diaryTitleForm">タイトル：</label>
+			<input type="text" th:field="*{diaryTitleForm}"><br>
+			 <div th:if="${#fields.hasErrors('diaryTitleForm')}" th:errors="*{diaryTitleForm}" style="color: red;"></div>
 			
-			<label for="diaryContent">本文：</label>
-			<input type="text" id="diaryContent" name="diaryContent"><br>
+			<label for="diaryContentForm">本文：</label>
+			<input type="text" th:field="*{diaryContentForm}"><br>
+			 <div th:if="${#fields.hasErrors('diaryContentForm')}" th:errors="*{diaryContentForm}" style="color: red;"></div>
 			
 			<button type="submit">保存</button>
 		</form>

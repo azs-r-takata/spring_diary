@@ -11,11 +11,11 @@
 		<form th:action="@{/diary/save}" method="post" th:object="${diaryForm}">
 			<label for="diaryTitleForm">タイトル：</label>
 			<input type="text" th:field="*{diaryTitleForm}"><br>
-			<!--<input type="text" id="diaryTitle" name="diaryTitle"><br>-->
+			 <div th:if="${#fields.hasErrors('diaryTitleForm')}" th:errors="*{diaryTitleForm}" style="color: red;"></div>
 			
 			<label for="diaryContentForm">本文：</label>
 			<input type="text" th:field="*{diaryContentForm}"><br>
-			<!--<input type="text" id="diaryContent" name="diaryContent"><br>-->
+			 <div th:if="${#fields.hasErrors('diaryContentForm')}" th:errors="*{diaryContentForm}" style="color: red;"></div>
 			
 			<button type="submit">保存</button>
 		</form>
