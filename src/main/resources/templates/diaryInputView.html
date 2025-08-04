@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,12 +8,14 @@
 	
 	<body>
 		<h2>日記登録</h2>
-		<form th:action="@{/diary/save}" method="post">
-			<label for="diaryTitle">タイトル：</label>
-			<input type="text" id="diaryTitle" name="diaryTitle"><br>
+		<form th:action="@{/diary/save}" method="post" th:object="${diaryForm}">
+			<label for="diaryTitleForm">タイトル：</label>
+			<input type="text" th:field="*{diaryTitleForm}"><br>
+			<!--<input type="text" id="diaryTitle" name="diaryTitle"><br>-->
 			
-			<label for="diaryContent">本文：</label>
-			<input type="text" id="diaryContent" name="diaryContent"><br>
+			<label for="diaryContentForm">本文：</label>
+			<input type="text" th:field="*{diaryContentForm}"><br>
+			<!--<input type="text" id="diaryContent" name="diaryContent"><br>-->
 			
 			<button type="submit">保存</button>
 		</form>

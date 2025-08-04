@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.diary.entity.Diary;
+import com.example.diary.form.DiaryForm;
 import com.example.diary.service.DiaryService;
 
 @Controller
@@ -27,6 +28,10 @@ public class DiaryController {
 		List<Diary> diaries = diaryService.getAllDiary();
 		Collections.reverse(diaries);
 		model.addAttribute("diaries", diaries);
+		
+		if(!model.containsAttribute("diaryForm")) {
+			model.addAttribute("diaryForm", new DiaryForm());
+		}
 		
 		return "diaryView";
 	}
@@ -50,10 +55,12 @@ public class DiaryController {
 	
 	@PostMapping("/diary/save")
 	public String saveDiary(RedirectAttributes redirectAttributes,
-			@RequestParam("diaryTitle") String diaryTitle,
-			@RequestParam("diaryContent") String diaryContent) {
+			DiaryForm form) {
+			//@RequestParam("diaryTitle") String diaryTitle,
+			//@RequestParam("diaryContent") String diaryContent) {
 		try {
-			diaryService.inputDiary(diaryTitle, diaryContent);
+			diaryService.inputDiary(form.getDiaryTitleForm(), form.getDiaryContentForm());
+			//diaryService.inputDiary(diaryTitle, diaryContent);
 			redirectAttributes.addFlashAttribute("successMessage", "日記の登録完了");
 		} catch (IllegalArgumentException e) {
 			redirectAttributes.addFlashAttribute("failureMessage", e.getMessage());
