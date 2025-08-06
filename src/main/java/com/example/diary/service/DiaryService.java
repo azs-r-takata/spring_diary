@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.diary.entity.Diary;
+import com.example.diary.form.DiaryForm;
 import com.example.diary.repository.DiaryRepository;
 
 @Service
@@ -32,6 +33,17 @@ public class DiaryService {
 		diary.setDiaryDate(now);
 		
 		diaryRepository.save(diary);
+	}
+	
+	public DiaryForm getEditDiary(int diaryId) {
+		Optional<Diary> diaryOpt = diaryRepository.findById(diaryId);
+		Diary entity = diaryOpt.get();
+		
+		DiaryForm form = new DiaryForm();
+		form.setDiaryId(diaryId);
+		form.setDiaryTitleForm(entity.getDiaryTitle());
+		form.setDiaryContentForm(entity.getDiaryContent());
+		return form;
 	}
 	
 	public void updateDiary(int diaryId, String diaryTitle, String diaryContent) {

@@ -58,7 +58,7 @@ public class DiaryController {
 		model.addAttribute("diary", diaryService.getDiaryById(id).orElse(null));
 		
 		if(!model.containsAttribute("diaryForm")) {
-			model.addAttribute("diaryForm", new DiaryForm());
+			model.addAttribute("diaryForm", diaryService.getEditDiary(id));
 		}
 		
 		return "diaryUpdateView";
