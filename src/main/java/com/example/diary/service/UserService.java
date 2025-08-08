@@ -1,5 +1,7 @@
 package com.example.diary.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.diary.entity.User;
@@ -16,7 +18,13 @@ public class UserService {
 		User user = new User();
 		user.setUserName(userName);
 		user.setUserPassword(password);
+		user.setUserRole("ROLE_GENERAL");
 		
 		userRepository.save(user);
 	}
+	
+	public List<User> getAllUser(){
+		return userRepository.findAll();
+	}
+
 }

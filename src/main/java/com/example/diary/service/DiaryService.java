@@ -18,14 +18,6 @@ public class DiaryService {
 	}
 	
 	public void inputDiary(String diaryTitle, String diaryContent) {
-		if (diaryTitle == null || diaryTitle.isEmpty()) {
-			throw new IllegalArgumentException("タイトルを入力してください。");
-		}
-		
-		if (!diaryRepository.findByDiaryTitle(diaryTitle).isEmpty()) {
-			throw new IllegalArgumentException("そのタイトルは既に使用されています。");
-		}
-		
 		Date now = new Date();
 		Diary diary = new Diary();
 		diary.setDiaryTitle(diaryTitle);
@@ -47,14 +39,6 @@ public class DiaryService {
 	}
 	
 	public void updateDiary(int diaryId, String diaryTitle, String diaryContent) {
-		if (diaryTitle == null || diaryTitle.isEmpty()) {
-			throw new IllegalArgumentException("タイトルを入力してください。");
-		}
-		
-		if (!diaryRepository.findByDiaryTitle(diaryTitle).isEmpty()) {
-			throw new IllegalArgumentException("そのタイトルは既に使用されています。");
-		}
-		
 		Date now = new Date();
 		Diary diary = new Diary();
 		diary.setDiaryId(diaryId);

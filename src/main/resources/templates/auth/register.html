@@ -25,5 +25,8 @@
 				<td><button type="submit">登録</button></td>
 			</table>	
 		</from>
+		
+		<p th:if="${successMessage}" th:text="${successMessage}" style="color: green;"></p>
+		<p th:if="${failureMessage}" th:text="${failureMessage}" style="color: red;"></p>
 	</body>
 </html>
