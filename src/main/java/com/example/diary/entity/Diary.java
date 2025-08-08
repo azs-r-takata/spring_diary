@@ -27,4 +27,7 @@ public class Diary {
 	
 	@Column(name = "diary_date")
 	private Date diaryDate;
+	
+	@Column(name = "diary_user_id")
+	private Integer diaryUserId;
 }
