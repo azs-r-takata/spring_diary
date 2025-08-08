@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>新規ユーザー登録</title>
+	</head>
+    <body>
+		<h1>新規ユーザー登録</h1>
+		
+		<from th:action="@{/registing}" method="post" th:object="${userForm}">
+			<table border="0">
+				<colgroup>
+				<th><label for="userName">ユーザー名</label></th>
+				<td><input type="text" th:field="*{userName}"></td>
+				</colgroup>
+				<tr><th></th><td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" style="color:red;"></td></tr>
+				
+				<colgroup>
+				<th><label for="password">パスワード</label></th>
+				<td><input type="password" th:field="*{password}"></td>
+				</colgroup>
+				<tr><th></th><td th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;"></td></tr>
+				
+				<td><button type="submit">登録</button></td>
+			</table>	
+		</from>
+	</body>
+</html>
