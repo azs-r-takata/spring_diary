@@ -11,18 +11,18 @@
 			ユーザー名またはパスワードが正しくありません。
 		</div>
 		
-		<from th:action="@{/login}" method="post">
+		<form th:action="@{/login}" method="post">
 			<table border="0">
 				<colgroup>
-				<td><input type="text" id="userName" name="userName" placeholder="ユーザー名"></td>
+				<td><input type="text" id="username" name="username" placeholder="ユーザー名"></td>
 				</colgroup>
 				
 				<colgroup>
 				<td><input type="password" id="password" name="password" placeholder="password"></td>
 				</colgroup>
 				
-				<tr></tr><td><button type="submit">登録</button></td>
+				<tr></tr><td><button type="submit">ログイン</button></td>
 			</table>	
-		</from>
+		</form>
     </body>
 </html>

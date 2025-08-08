@@ -2,6 +2,7 @@ package com.example.diary.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.diary.entity.User;
@@ -14,11 +15,17 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 	
-	public void inputUser(String userName, String password) {
+	public String registerPass(String password) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String  hashPassword = passwordEncoder.encode(password);
+		return hashPassword;
+	}
+	
+	public void inputUser(String userName, String password, String userRole) {
 		User user = new User();
 		user.setUserName(userName);
 		user.setUserPassword(password);
-		user.setUserRole("ROLE_GENERAL");
+		user.setUserRole(userRole);
 		
 		userRepository.save(user);
 	}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,13 +24,15 @@
 			</tr>
 		</table>
 		
-		<form th:action="@{/diary/edit/{id}(id=${diary.diaryId})}" method="get">
-			<button type="submit">編集</button>
-		</form>
-		
-		<form th:action="@{/diary/delete/{id}(id=${diary.diaryId})}" method="post">
-			<button type="submit">削除</button>
-		</form>
+		<div sec:authorize="hasRole('ADMIN')">
+			<form th:action="@{/diary/edit/{id}(id=${diary.diaryId})}" method="get">
+				<button type="submit">編集</button>
+			</form>
+			
+			<form th:action="@{/diary/delete/{id}(id=${diary.diaryId})}" method="post">
+				<button type="submit">削除</button>
+			</form>
+		</div>
 		
 		<form th:action="@{/diary}" method="get">
 			<button type="submit">戻る</button>

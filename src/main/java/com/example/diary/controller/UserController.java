@@ -29,7 +29,7 @@ public class UserController {
 		if(!model.containsAttribute("userForm")) {
 			model.addAttribute("userForm", new UserForm());
 		}
-		return "auth/register";
+		return "/register";
 	}
 	
 	@PostMapping("/registing")
@@ -43,7 +43,7 @@ public class UserController {
 		}
 		
 		try {
-			userService.inputUser(form.getUserName(), form.getPassword());
+			userService.inputUser(form.getUserName(), userService.registerPass(form.getPassword()), "ROLE_ADMIN");
 			redirectAttributes.addFlashAttribute("successMessage", "日記の登録完了");
 		} catch (IllegalArgumentException e) {
 			redirectAttributes.addFlashAttribute("failureMessage", e.getMessage());

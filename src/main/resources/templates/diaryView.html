@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,9 +8,13 @@
 	
 	<body>
 		<h2>日記一覧</h2>
-		<form th:action="@{/diary/new}" method="get">
-			<button type="submit">新規投稿</button>
-		</form>
+		
+		<div sec:authorize="hasRole('ADMIN')">
+			<form th:action="@{/diary/new}" method="get">
+				<button type="submit">新規投稿</button>
+			</form>
+		</div>
+		
 		<table border="1">
 			<thead>
 				<tr>

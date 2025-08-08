@@ -32,22 +32,22 @@ public class UserDetailsImpl implements UserDetails {
 	}
 	
 	@Override
-	public boolean isAccountNonExpired() {
+	public boolean isAccountNonExpired() { //アカウントが期限切れでなければtrueを返す。
 		return true;
 	}
 	
 	@Override
-	public boolean isAccountNonLocked() {
+	public boolean isAccountNonLocked() { //ユーザーがロックされていなければtrueを返す。
 		return true;
 	}
 	
 	@Override
-	public boolean isCredentialsNonExpired() {
+	public boolean isCredentialsNonExpired() { //ユーザーのパスワードが期限切れでなければtrueを返す。
 		return true;
 	}
 	
 	@Override
-	public boolean isEnabled() {
+	public boolean isEnabled() { //ユーザーが有効であればtrueを返す。
 		return true;
 	}
 	
