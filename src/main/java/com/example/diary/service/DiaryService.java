@@ -41,13 +41,14 @@ public class DiaryService {
 		return form;
 	}
 	
-	public void updateDiary(int diaryId, String diaryTitle, String diaryContent) {
+	public void updateDiary(int diaryId, String diaryTitle, String diaryContent, int diaryUserId) {
 		Date now = new Date();
 		Diary diary = new Diary();
 		diary.setDiaryId(diaryId);
 		diary.setDiaryTitle(diaryTitle);
 		diary.setDiaryContent(diaryContent);
 		diary.setDiaryDate(now);
+		diary.setDiaryUserId(diaryUserId);
 		
 		diaryRepository.save(diary);
 	}

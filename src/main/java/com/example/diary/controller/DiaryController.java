@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.core.Conventions;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.diary.entity.Diary;
 import com.example.diary.form.DiaryForm;
+import com.example.diary.security.UserDetailsImpl;
 import com.example.diary.service.DiaryService;
 
 @Controller
@@ -38,8 +40,10 @@ public class DiaryController {
 	
 	//詳細画面
 	@GetMapping("/diary/{id}")
-	public String detail(@PathVariable int id, Model model) {
+	public String detail(@PathVariable int id, Model model,
+			@AuthenticationPrincipal UserDetailsImpl user) {
 		model.addAttribute("diary", diaryService.getDiaryById(id).orElse(null));
+		model.addAttribute("user", user);
 		return "diaryDetailsView";
 	} //End 詳細画面
 	
@@ -89,6 +93,7 @@ public class DiaryController {
 	@PostMapping("/diary/update")
 	public String updateDiary(RedirectAttributes redirectAttributes,
 			@RequestParam("diaryId") int diaryId,
+			@RequestParam("diaryUserId") int diaryUserId,
 			@Validated DiaryForm form, BindingResult result) {
 		if(result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("diaryForm", form);
@@ -98,7 +103,7 @@ public class DiaryController {
 		}
 		
 		try {
-			diaryService.updateDiary(diaryId, form.getDiaryTitleForm(), form.getDiaryContentForm());
+			diaryService.updateDiary(diaryId, form.getDiaryTitleForm(), form.getDiaryContentForm(), diaryUserId);
 			redirectAttributes.addFlashAttribute("successMessage", "日記の更新完了");
 		} catch (IllegalArgumentException e) {
 			redirectAttributes.addFlashAttribute("failureMessage", e.getMessage());

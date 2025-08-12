@@ -25,13 +25,15 @@
 		</table>
 		
 		<div sec:authorize="hasRole('ADMIN')">
-			<form th:action="@{/diary/edit/{id}(id=${diary.diaryId})}" method="get">
-				<button type="submit">編集</button>
-			</form>
-			
-			<form th:action="@{/diary/delete/{id}(id=${diary.diaryId})}" method="post">
-				<button type="submit">削除</button>
-			</form>
+			<div th:if="${user.getId() == diary.diaryUserId}" >
+				<form th:action="@{/diary/edit/{id}(id=${diary.diaryId})}" method="get">
+					<button type="submit">編集</button>
+				</form>
+				
+				<form th:action="@{/diary/delete/{id}(id=${diary.diaryId})}" method="post">
+					<button type="submit">削除</button>
+				</form>
+			</div>
 		</div>
 		
 		<form th:action="@{/diary}" method="get">

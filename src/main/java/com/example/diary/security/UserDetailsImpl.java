@@ -16,6 +16,10 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 	
+	public int getId() {
+		return user.getUserId();
+	}
+	
 	@Override
 	public String getPassword() {
 		return user.getUserPassword();

@@ -19,6 +19,8 @@
 			<label for="diaryContentForm">本文：</label>
 			<input type="text" th:field="*{diaryContentForm}"><br>
 			 <div th:if="${#fields.hasErrors('diaryContentForm')}" th:errors="*{diaryContentForm}" style="color: red;"></div>
+			 
+			 <input type="hidden" th:value="${diary.diaryUserId}" name="diaryUserId"><br>
 			
 			<button type="submit">保存</button>
 		</form>
