@@ -58,7 +58,12 @@ public class DiaryController {
 	
 	//編集画面
 	@GetMapping("/diary/edit/{id}")
-	public String editer(@PathVariable int id, Model model) {
+	public String editer(@PathVariable int id, Model model,
+			@AuthenticationPrincipal UserDetailsImpl user) {
+		if(id != user.getId()) {
+			return "redirect:/diary/error403";
+		}
+		
 		model.addAttribute("diary", diaryService.getDiaryById(id).orElse(null));
 		
 		if(!model.containsAttribute("diaryForm")) {
@@ -114,7 +119,12 @@ public class DiaryController {
 	
 	//削除処理
 	@PostMapping("diary/delete/{id}")
-	public String deleteDiary(@PathVariable int id, RedirectAttributes redirectAttributes) {
+	public String deleteDiary(@PathVariable int id, RedirectAttributes redirectAttributes,
+			@AuthenticationPrincipal UserDetailsImpl user) {
+		if(id != user.getId()) {
+			return "redirect:/diary/error403";
+		}
+		
 		try {
 			diaryService.deleteDiary(id);
 			redirectAttributes.addFlashAttribute("successMessage", "日記の削除完了");
@@ -126,4 +136,9 @@ public class DiaryController {
 		
 		return "redirect:/diary";
 	} //End 削除処理
+	
+	@GetMapping("/diary/error403")
+	public String error403() {
+		return "error403";
+	}
 }
