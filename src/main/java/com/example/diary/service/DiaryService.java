@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.diary.entity.Diary;
@@ -18,8 +17,7 @@ public class DiaryService {
 		this.diaryRepository = diaryRepository;
 	}
 	
-	public void inputDiary(String diaryTitle, String diaryContent) {
-		final int nowUser = SecurityContextHolder.getInitializeCount();
+	public void inputDiary(String diaryTitle, String diaryContent, int nowUser) {
 		Date now = new Date();
 		Diary diary = new Diary();
 		diary.setDiaryTitle(diaryTitle);
@@ -41,13 +39,13 @@ public class DiaryService {
 		return form;
 	}
 	
-	public void updateDiary(int diaryId, String diaryTitle, String diaryContent, int diaryUserId) {
-		Date now = new Date();
+	public void updateDiary(int diaryId, String diaryTitle, String diaryContent, Date diaryDate, int diaryUserId) {
+		//Date now = new Date();
 		Diary diary = new Diary();
 		diary.setDiaryId(diaryId);
 		diary.setDiaryTitle(diaryTitle);
 		diary.setDiaryContent(diaryContent);
-		diary.setDiaryDate(now);
+		diary.setDiaryDate(diaryDate);
 		diary.setDiaryUserId(diaryUserId);
 		
 		diaryRepository.save(diary);

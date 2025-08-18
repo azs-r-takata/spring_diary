@@ -1,7 +1,9 @@
 package com.example.diary.controller;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.core.Conventions;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -58,9 +60,10 @@ public class DiaryController {
 	
 	//編集画面
 	@GetMapping("/diary/edit/{id}")
-	public String editer(@PathVariable int id, Model model,
+	public String editer(@PathVariable int id, Model model, Optional<Diary> diary,
 			@AuthenticationPrincipal UserDetailsImpl user) {
-		if(id != user.getId()) {
+		diary = diaryService.getDiaryById(id);
+		if(diary.get().getDiaryUserId() != user.getId()) {
 			return "redirect:/diary/error403";
 		}
 		
@@ -76,7 +79,8 @@ public class DiaryController {
 	//投稿保存処理
 	@PostMapping("/diary/save")
 	public String saveDiary(RedirectAttributes redirectAttributes,
-			@Validated DiaryForm form, BindingResult result) {
+			@Validated DiaryForm form, BindingResult result,
+			@AuthenticationPrincipal UserDetailsImpl user) {
 		if(result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("diaryForm", form);
 			redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + Conventions.getVariableName(form), result);
@@ -85,7 +89,7 @@ public class DiaryController {
 		}
 		
 		try {
-			diaryService.inputDiary(form.getDiaryTitleForm(), form.getDiaryContentForm());
+			diaryService.inputDiary(form.getDiaryTitleForm(), form.getDiaryContentForm(), user.getId());
 			redirectAttributes.addFlashAttribute("successMessage", "日記の登録完了");
 		} catch (IllegalArgumentException e) {
 			redirectAttributes.addFlashAttribute("failureMessage", e.getMessage());
@@ -108,7 +112,8 @@ public class DiaryController {
 		}
 		
 		try {
-			diaryService.updateDiary(diaryId, form.getDiaryTitleForm(), form.getDiaryContentForm(), diaryUserId);
+			Date diaryDate = diaryService.getDiaryById(diaryId).get().getDiaryDate();
+			diaryService.updateDiary(diaryId, form.getDiaryTitleForm(), form.getDiaryContentForm(), diaryDate,  diaryUserId);
 			redirectAttributes.addFlashAttribute("successMessage", "日記の更新完了");
 		} catch (IllegalArgumentException e) {
 			redirectAttributes.addFlashAttribute("failureMessage", e.getMessage());
@@ -120,8 +125,9 @@ public class DiaryController {
 	//削除処理
 	@PostMapping("diary/delete/{id}")
 	public String deleteDiary(@PathVariable int id, RedirectAttributes redirectAttributes,
-			@AuthenticationPrincipal UserDetailsImpl user) {
-		if(id != user.getId()) {
+			Optional<Diary> diary, @AuthenticationPrincipal UserDetailsImpl user) {
+		diary = diaryService.getDiaryById(id);
+		if(diary.get().getDiaryUserId() != user.getId()) {
 			return "redirect:/diary/error403";
 		}
 		
