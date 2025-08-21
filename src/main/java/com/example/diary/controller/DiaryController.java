@@ -64,7 +64,7 @@ public class DiaryController {
 			@AuthenticationPrincipal UserDetailsImpl user) {
 		diary = diaryService.getDiaryById(id);
 		if(diary.get().getDiaryUserId() != user.getId()) {
-			return "redirect:/diary/error403";
+			return "redirect:/error403";
 		}
 		
 		model.addAttribute("diary", diaryService.getDiaryById(id).orElse(null));
@@ -128,7 +128,7 @@ public class DiaryController {
 			Optional<Diary> diary, @AuthenticationPrincipal UserDetailsImpl user) {
 		diary = diaryService.getDiaryById(id);
 		if(diary.get().getDiaryUserId() != user.getId()) {
-			return "redirect:/diary/error403";
+			return "redirect:/error403";
 		}
 		
 		try {
@@ -143,7 +143,7 @@ public class DiaryController {
 		return "redirect:/diary";
 	} //End 削除処理
 	
-	@GetMapping("/diary/error403")
+	@GetMapping("/error403")
 	public String error403() {
 		return "error403";
 	}
