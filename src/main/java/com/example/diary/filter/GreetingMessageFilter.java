@@ -32,14 +32,11 @@ public class GreetingMessageFilter implements Filter {
 		LocalTime now = LocalTime.now();
 		
 		if (now.isAfter(LocalTime.of(0, 59)) && now.isBefore(LocalTime.of(2, 00))) {
-			//httpResponse.sendRedirect("/error403");
-			//return;
+			httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "メンテナンス中です");
 		} else if(now.isAfter(LocalTime.of(3, 59)) && now.isBefore(LocalTime.of(12, 00))) {
 			httpResponse.getWriter().write("おはようございます");
 		} else if (now.isAfter(LocalTime.of(11, 59)) && now.isBefore(LocalTime.of(17, 00))) {
-			//httpResponse.getWriter().write("こんにちは");
-			httpResponse.sendRedirect("/error403");
-			return;
+			httpResponse.getWriter().write("こんにちは");
 		} else if (now.isAfter(LocalTime.of(16, 59)) && now.isBefore(LocalTime.of(4, 00))) {
 			httpResponse.getWriter().write("こんばんは");
 		}
